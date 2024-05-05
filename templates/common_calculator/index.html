@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="{% static 'staticfiles/styles/index.css' %}">
+</head>
+<body>
+    <ul class="calculator display">
+        {% for number in numbers %}
+            <li class="{{ number.button_type }}"  value="{{ number.value }}" type="button">
+                {{ number.type }} {{ number.value }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

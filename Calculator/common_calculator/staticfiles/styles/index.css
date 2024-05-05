@@ -1,0 +1,8 @@
+ .calculator.display  {
+    font-style: italic;
+}
+
+ .number {
+     font-style: italic;
+     font: caption;
+ }

@@ -1,19 +1,35 @@
-{% load staticfiles %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Calculator</title>
-    <link rel="stylesheet" href="{% static 'staticfiles/styles/index.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+    <script src="{% static 'JavaScripts/functions.js' %}"></script>
+
 </head>
 <body>
-    <ul class="calculator display">
+<main>
+    <label for="screen" disabled="True"></label>
+    <input type="text" id="screen" onkeypress="return isNumberKey(event)">
+
+    <label for="resultScreen" disabled="True"></label>
+
+    <textarea id="resultScreen"></textarea>
+
+    <ul class="calculator display" id="calculator-buttons">
         {% for number in numbers %}
-            <li class="{{ number.button_type }}"  value="{{ number.value }}" type="button">
-                {{ number.type }} {{ number.value }}
+            <li>
+                {#                <input type="button" value="{{ number.value }}" onclick="typeButtonValuesOnScreen()" >#}
+                <button class="{{ number.button_type }}" value="{{ number.value }}"
+                        onclick="showButtonValuesOnScreen(this)">{{ number.value }}
+
+                </button>
             </li>
         {% endfor %}
     </ul>
+</main>
+
 </body>
 </html>

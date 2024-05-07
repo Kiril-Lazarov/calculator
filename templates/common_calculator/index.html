@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Calculator</title>
     <link rel="stylesheet" href="{% static 'styles/index.css' %}">
-    <script src="{% static 'JavaScripts/functions.js' %}"></script>
+
 
 </head>
 <body>
@@ -23,13 +23,13 @@
             <li>
                 {#                <input type="button" value="{{ number.value }}" onclick="typeButtonValuesOnScreen()" >#}
                 <button class="{{ number.button_type }}" value="{{ number.value }}"
-                        onclick="showButtonValuesOnScreen(this)">{{ number.value }}
+                        onclick="clickButton(this)">{{ number.value }}
 
                 </button>
             </li>
         {% endfor %}
     </ul>
 </main>
-
+<script src="{% static 'JavaScripts/functions.js' %}"></script>
 </body>
 </html>

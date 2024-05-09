@@ -1,142 +1,119 @@
-function writeValueOnScreen(value, screen, resultScreen) {
-    validateScreen(value, screen, resultScreen)
-}
+// A collection of functions
+// that take the values input from the calculator's display,
+// process them, and output them to the result screen.
 
-function extractSplittingChar(stringValue) {
-    
-    // Find all characters which are math operations.
-    const regex = /[+-/*%]/gm;
+
+let digitsMassive = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+
+//Extracts last integer ot floating point number after the last operation sign
+function extractLastNumber(stringValue) {
+
+    // Find all numbers in the stringValue.
+    const regex = /\d+\.\d+|\d+/gm;
 
     const matches = [...stringValue.matchAll(regex)];
 
-    const groups = matches.map(match => match[0]);
+    const numbersMassive = matches.map(match => match[0]);
 
-    const newGroup = groups.filter(item => item !== '.');
-
-    const newGroupString = newGroup.join(', ');
-
-    //Return the last char
-    return newGroupString.charAt(newGroupString.length - 1)
-
+    //Return the last number
+    return numbersMassive[numbersMassive.length - 1]
 }
-function handleSpecialSymbols(value, screen, resultScreen) {
-    if (value === '.') {
-        //  "Splitting char" - is the last character (if any)
-        // of all mathematical operations present in the expression in `screen.value`.
-        // For example:
-        // `12+45.0/9*2-2` -> the last math operation char is `-`
-        // This will be the character we will use below to split the expression.
-        let splittingChar = extractSplittingChar(screen.value);
 
-        // Last number here means the sequence of digits
-        // following the last mathematical operator symbol.
-        let splitMassive = screen.value.split(splittingChar);
-
-        // Checking if lastNumber is an array
-        if (Array.isArray(splitMassive) && splitMassive.length > 0) {
-
-            // If it is -> get lastNumber and check wether it contains `.`
-            let lastNumber = splitMassive[splitMassive.length - 1];
-
-            // If not -> add `.` to the screen.value 
-            if (!lastNumber.includes(value)) {
-                screen.value += value;
-            }
-        }
-    } else if (value === '0') {
-        let lastChar = screen.value.charAt(screen.value.length - 1)
-        screen.value += value
-        if (lastChar === '/') {
-            resultScreen.value = 'ERROR! Dividing by zero!'
-        }
-
-    }
-
-}
-function clearScreen(value, screen, resultScreen) {
-        if (value === 'C') {
-            screen.value = '';
-
-        } else if (value === 'BACK') {
-            screen.value = screen.value.slice(0, -1);
-
-        }
-        evaluateResultOnScreen(screen, resultScreen)
-    }
-
-    let buttonAction = {
-        'number': writeValueOnScreen,
-        'clear_function': clearScreen,
-        'operation': writeValueOnScreen,
-        'special': handleSpecialSymbols
-};
-
-
+//Allows only digits, mathematical operations, and a dot to be entered from the keyboard.
 function isNumberKey(evt) {
-        let charCode = (evt.which) ? evt.which : evt.keyCode;
-        return (charCode >= 48 && charCode <= 57) || // digits from 0 - 9
-            charCode === 42 || // *
-            charCode === 43 || // +
-            charCode === 45 || // -
-            charCode === 47 || // /
-            charCode === 46 || // .
-            charCode === 13 || // Enter
-            charCode === 61 || // =
-            charCode === 37 || // %
-            charCode === 99;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    return (charCode >= 48 && charCode <= 57) || // digits from 0 - 9
+        charCode === 42 || // *
+        charCode === 43 || // +
+        charCode === 45 || // -
+        charCode === 47 || // /
+        charCode === 46 || // .
+        charCode === 13 || // Enter
+        charCode === 61 || // =
+        charCode === 37 || // %
+        charCode === 99;
 
 }
 
-let operationsMassive = ['-', '+', '*', '/', '%'];
-let numbersMassive = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-let dot = ['.'];
+function clearScreen(value, screen, resultScreen, redirectToHandleInput = true) {
+    if (value === 'C') {
+        screen.value = '';
+        resultScreen.value = '';
 
-function evaluateResultOnScreen(screen, resultScreen) {
-        if (screen.value.length !== 0) {
-            let lastChar = screen.value.charAt(screen.value.length - 1)
-            if (operationsMassive.includes(lastChar)) {
-                resultScreen.value = '';
-            } else {                
-                resultScreen.value = eval(screen.value);
-                if (resultScreen.value === 'Infinity' || resultScreen.value === '-Infinity'){
-                    resultScreen.value = 'ERROR! Dividing by zero!'
+    } else if (value === 'BACK') {
+        screen.value = screen.value.slice(0, -1);
+
+    }
+    if (redirectToHandleInput) {
+        handleInput(screen, resultScreen);
+    }
+
+
+}
+
+
+// Clean the input from redundant zeroes
+function inputPreprocessing(screen) {
+    let lastNumber = extractLastNumber(screen.value);
+    if (lastNumber) {
+        let inputValue = lastNumber.charAt(lastNumber.length - 1); //
+        let preLastChar = lastNumber.charAt(lastNumber.length - 2)
+        if (lastNumber.length > 1 && preLastChar === '0') {
+            if (digitsMassive.includes(inputValue)) {
+                if (!lastNumber.includes('0.')) {
+                    screen.value = screen.value.slice(0, -1)
                 }
+
             }
-        } else {
+        }
+    }
+}
+
+function handleInput(screen, resultScreen) {
+
+    try {
+        resultScreen.value = eval(screen.value);
+
+        if (resultScreen.value === 'undefined') {
             resultScreen.value = '';
+        } else if (resultScreen.value === 'Infinity' ||
+            resultScreen.value === '-Infinity' ||
+            resultScreen.value === 'NaN') {
+
+            resultScreen.value = 'ERROR!\nDivision by 0';
         }
+    } catch (error) {
+        let inputValue = screen.value.charAt(screen.value.length - 1)
+        if (inputValue === '.') {
+            clearScreen('BACK', screen, resultScreen);
+        } else if (inputValue === '=') {
+            clearScreen('BACK', screen, resultScreen, false);
+            screen.value = '';
+        }
+    }
 }
 
-function validateScreen(value, screen, resultScreen) {
-        if (screen.value.length !== 0) {
-
-            let lastChar = screen.value.charAt(screen.value.length - 1)
-            if (numbersMassive.concat(dot).includes(lastChar)) {
-                screen.value += value;
-            } else {
-                if (value in numbersMassive) {
-                    screen.value += value;
-
-                }
-            }
-
-        } else {
-            if (!operationsMassive.slice(1).includes(value)) {
-                screen.value = value;
-            }
-        }
-        evaluateResultOnScreen(screen, resultScreen)
-}
 
 function clickButton(element) {
-        // Get needed DOM elements
-        let screen = document.getElementById("screen");
-        let resultScreen = document.getElementById('resultScreen')
-        let elementType = element.getAttribute('class');
-        let elementValue = element.value;
+    // Get needed DOM elements
+    let screen = document.getElementById("screen");
+    let resultScreen = document.getElementById('resultScreen')
+    let elementType = element.getAttribute('class');
+    let elementValue = element.value;
 
-
-        // Updates the screen by directing it to the corresponding function.
-        buttonAction[elementType](elementValue, screen, resultScreen);
+    if (elementType === 'clear_function') {
+        clearScreen(elementValue, screen, resultScreen)
+    } else {
+        screen.value += elementValue
+        // Clean the input from redundant zeroes
+        inputPreprocessing(screen)
+        handleInput(screen, resultScreen)
+    }
 
 }
+
+
+
+
+

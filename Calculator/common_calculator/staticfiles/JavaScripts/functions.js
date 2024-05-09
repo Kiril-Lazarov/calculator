@@ -4,7 +4,7 @@
 
 
 let digitsMassive = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
+let operationsMassive = ['+','-','*','/','%']
 
 //Extracts last integer ot floating point number after the last operation sign
 function extractLastNumber(stringValue) {
@@ -51,10 +51,31 @@ function clearScreen(value, screen, resultScreen, redirectToHandleInput = true) 
 
 
 }
+// This function does not allow more than one operation
+// sign on the screen, except for the combination '*-'
+function operationsInputPreprocessing(screen){
+    let inputScreenValue = screen.value.charAt(screen.value.length - 1)
+
+
+    if (screen.value.length === 1 && inputScreenValue !== '-'){
+        screen.value = ''
+    }
+
+    else {
+        let previousScreenValue = screen.value.charAt(screen.value.length - 2)
+        if (operationsMassive.includes(inputScreenValue) &&
+            operationsMassive.includes(previousScreenValue)){
+            if (previousScreenValue + inputScreenValue !== '*-'){
+                screen.value = screen.value.slice(0, -2)
+                screen.value += inputScreenValue
+            }
+        }
+    }
+}
 
 
 // Clean the input from redundant zeroes
-function inputPreprocessing(screen) {
+function inputZeroesPreprocessing(screen){
     let lastNumber = extractLastNumber(screen.value);
     if (lastNumber) {
         let inputValue = lastNumber.charAt(lastNumber.length - 1); //
@@ -67,6 +88,17 @@ function inputPreprocessing(screen) {
 
             }
         }
+    }
+}
+
+// Decides which of the input preprocessing functions to call.
+function inputPreprocessingDispatcher(screen) {
+    let inputValue = screen.value.charAt(screen.value.length - 1)
+    if (operationsMassive.includes(inputValue)){
+        operationsInputPreprocessing(screen)
+    }
+    else if (digitsMassive.includes(inputValue)){
+        inputZeroesPreprocessing(screen)
     }
 }
 
@@ -106,8 +138,8 @@ function clickButton(element) {
         clearScreen(elementValue, screen, resultScreen)
     } else {
         screen.value += elementValue
-        // Clean the input from redundant zeroes
-        inputPreprocessing(screen)
+
+        inputPreprocessingDispatcher(screen)
         handleInput(screen, resultScreen)
     }
 

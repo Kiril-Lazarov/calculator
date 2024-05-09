@@ -1,4 +1,5 @@
 import abc
+from abc import ABC
 
 
 class Button(abc.ABC):
@@ -15,8 +16,17 @@ class Button(abc.ABC):
 
 
 class Numbers(Button):
-    button_type = 'number'
-    values_list = [str(x) for x in range(1, 10)]
+    button_type = 'digit'
+    values_list = [str(x) for x in range(10)]
+
+    def __init__(self, value):
+        self.value = value
+
+
+
+class SpecialSymbols(Button):
+    button_type = 'special'
+    values_list = ['.', '=']
 
     def __init__(self, value):
         self.value = value
@@ -24,7 +34,7 @@ class Numbers(Button):
 
 class MathOperations(Button):
     button_type = 'operation'
-    values_list = ['+', '-', '*', '/']
+    values_list = ['+', '-', '*', '/', '%']
 
     def __init__(self, value):
         self.value = value
@@ -32,7 +42,7 @@ class MathOperations(Button):
 
 class NonMathFunctions(Button):
     button_type = 'clear_function'
-    values_list = ['%', 'CE', 'C', 'BACK']
+    values_list = ['C', 'BACK']
 
     def __init__(self, value):
         self.value = value
@@ -51,7 +61,8 @@ class ButtonFactory:
         MemoryFunctions,
         NonMathFunctions,
         MathOperations,
-        Numbers
+        Numbers,
+        SpecialSymbols
     ]
 
     def __init__(self):

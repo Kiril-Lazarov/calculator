@@ -23,10 +23,9 @@ class Numbers(Button):
         self.value = value
 
 
-
 class SpecialSymbols(Button):
     button_type = 'special'
-    values_list = ['.', '=']
+    values_list = ['.', '=', '%']
 
     def __init__(self, value):
         self.value = value
@@ -34,7 +33,7 @@ class SpecialSymbols(Button):
 
 class MathOperations(Button):
     button_type = 'operation'
-    values_list = ['+', '-', '*', '/', '%']
+    values_list = ['+', '-', '*', '/']
 
     def __init__(self, value):
         self.value = value

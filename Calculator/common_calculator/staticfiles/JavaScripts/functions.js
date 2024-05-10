@@ -4,22 +4,15 @@
 
 
 let digitsMassive = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-let operationsMassive = ['+','-','*','/','%']
+let operationsMassive = ['+','-','*','/']
 
-//Extracts last integer ot floating point number after the last operation sign
-function extractLastNumber(stringValue) {
+//Extracts the given pattern from input screen
+function extractStringPattern(stringValue,regexPattern) {
+    const matches = [...stringValue.matchAll(regexPattern)];
 
-    // Find all numbers in the stringValue.
-    const regex = /\d+\.\d+|\d+/gm;
-
-    const matches = [...stringValue.matchAll(regex)];
-
-    const numbersMassive = matches.map(match => match[0]);
-
-    //Return the last number
-    return numbersMassive[numbersMassive.length - 1]
+    //Return massive with all matched patterns
+    return matches.map(match => match[0])
 }
-
 //Allows only digits, mathematical operations, and a dot to be entered from the keyboard.
 function isNumberKey(evt) {
     let charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -63,7 +56,6 @@ function operationsInputPreprocessing(screen){
 
     else if (screen.value.length === 2){
         let previousScreenValue = screen.value.charAt(screen.value.length - 2);
-        // screen.value = screen.value.slice(0, -1);
         if (previousScreenValue === '-'){
             screen.value = previousScreenValue ;
         }
@@ -89,7 +81,11 @@ function operationsInputPreprocessing(screen){
 
 // Clean the input from redundant zeroes
 function inputZeroesPreprocessing(screen){
-    let lastNumber = extractLastNumber(screen.value);
+
+    // Find all numbers in the stringValue.
+    let regexPattern = /\d+\.\d+|\d+/gm
+    const matchedPatternsMassive = extractStringPattern(screen.value, regexPattern);
+    let lastNumber = matchedPatternsMassive[matchedPatternsMassive.length - 1]
     if (lastNumber) {
         let inputValue = lastNumber.charAt(lastNumber.length - 1); //
         let preLastChar = lastNumber.charAt(lastNumber.length - 2)

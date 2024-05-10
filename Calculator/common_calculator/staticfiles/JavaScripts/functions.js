@@ -10,6 +10,7 @@ let operationsMassive = ['+','-','*','/']
 function extractStringPattern(stringValue,regexPattern) {
     const matches = [...stringValue.matchAll(regexPattern)];
 
+
     //Return massive with all matched patterns
     return matches.map(match => match[0])
 }

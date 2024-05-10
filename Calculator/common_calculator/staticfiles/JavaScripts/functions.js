@@ -58,17 +58,30 @@ function operationsInputPreprocessing(screen){
 
 
     if (screen.value.length === 1 && inputScreenValue !== '-'){
-        screen.value = ''
+        screen.value = '';
+    }
+
+    else if (screen.value.length === 2){
+        let previousScreenValue = screen.value.charAt(screen.value.length - 2);
+        // screen.value = screen.value.slice(0, -1);
+        if (previousScreenValue === '-'){
+            screen.value = previousScreenValue ;
+        }
+
     }
 
     else {
         let previousScreenValue = screen.value.charAt(screen.value.length - 2)
         if (operationsMassive.includes(inputScreenValue) &&
             operationsMassive.includes(previousScreenValue)){
-            if (previousScreenValue + inputScreenValue !== '*-'){
+            if (screen.value.includes('*-' + inputScreenValue)){
+                screen.value = screen.value.replace('*-' + inputScreenValue, inputScreenValue)
+            }
+            else if (previousScreenValue + inputScreenValue !== '*-'){
                 screen.value = screen.value.slice(0, -2)
                 screen.value += inputScreenValue
             }
+
         }
     }
 }

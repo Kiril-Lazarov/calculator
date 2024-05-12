@@ -66,11 +66,16 @@ function handleInputs(screen, inputValue, elementType) {
             const matchedPatternsMassive = extractStringPattern(screen.value, regexPattern);
             let lastNumber = matchedPatternsMassive[matchedPatternsMassive.length - 1];
 
+            if (!lastNumber){
+                lastNumber = inputValue
+            }
 
             if (lastNumber.length === 1 && nextAllowedCharacter[lastChar].includes(inputValue)) {
                 newScreenValue += inputValue;
-                return newScreenValue
-            } else if (lastNumber.length > 1) {
+                return newScreenValue;
+            }
+
+             else if (lastNumber.length > 1) {
                 if (operations.includes(inputValue) && nextAllowedCharacter[lastChar].includes(inputValue)) {
                     newScreenValue += inputValue;
                     return newScreenValue

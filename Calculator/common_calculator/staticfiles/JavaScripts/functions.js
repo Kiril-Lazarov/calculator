@@ -172,7 +172,7 @@ function calculateOutput(screen) {
 
 function clickButton(element) {
     // Get needed DOM elements
-    let screen = document.getElementById("screen");
+    let screen = document.getElementById("screen-inputs");
     let resultScreen = document.getElementById('resultScreen')
     let elementType = element.getAttribute('class');
     let inputValue = element.value;

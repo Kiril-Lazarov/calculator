@@ -11,24 +11,30 @@
 </head>
 <body>
 <main>
-    <label for="screen" disabled="True"></label>
-    <input type="text" id="screen" onkeypress="return isNumberKey(event)">
+    <article>
+        <section id="screen">
+        <label class="screens" for="screen-inputs" ></label>
+        <input type="text" id="screen-inputs" onkeypress="return isNumberKey(event)">
 
-    <label for="resultScreen" disabled="True"></label>
+        <label for="resultScreen" disabled></label>
 
-    <textarea id="resultScreen"></textarea>
+        <input type="text" class="screens" id="resultScreen">
+    </section>
 
-    <ul class="calculator display" id="calculator-buttons">
-        {% for number in numbers %}
-            <li>
-                {#                <input type="button" value="{{ number.value }}" onclick="typeButtonValuesOnScreen()" >#}
-                <button class="{{ number.button_type }}" value="{{ number.value }}"
-                        onclick="clickButton(this)">{{ number.value }}
+        <section id="display">
+        <ul class="calculator display" id="calculator-buttons">
+            {% for number in numbers %}
+                <li>
+                    {#                <input type="button" value="{{ number.value }}" onclick="typeButtonValuesOnScreen()" >#}
+                    <button type="button" class="{{ number.button_type }}" value="{{ number.value }}"
+                            onclick="clickButton(this)">{{ number.value }}
 
-                </button>
-            </li>
-        {% endfor %}
-    </ul>
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+    </article>
 </main>
 <script src="{% static 'JavaScripts/functions.js' %}"></script>
 </body>

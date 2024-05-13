@@ -66,16 +66,14 @@ function handleInputs(screen, inputValue, elementType) {
             const matchedPatternsMassive = extractStringPattern(screen.value, regexPattern);
             let lastNumber = matchedPatternsMassive[matchedPatternsMassive.length - 1];
 
-            if (!lastNumber){
+            if (!lastNumber) {
                 lastNumber = inputValue
             }
 
             if (lastNumber.length === 1 && nextAllowedCharacter[lastChar].includes(inputValue)) {
                 newScreenValue += inputValue;
                 return newScreenValue;
-            }
-
-             else if (lastNumber.length > 1) {
+            } else if (lastNumber.length > 1) {
                 if (operations.includes(inputValue) && nextAllowedCharacter[lastChar].includes(inputValue)) {
                     newScreenValue += inputValue;
                     return newScreenValue
@@ -112,10 +110,9 @@ function transformInputWithPercentageSymbols(screenValue) {
     matchedPatternsMassive.forEach(el => {
 
         if (!el.includes('%')) {
-            if (el.toString() !=='*'){
+            if (el.toString() !== '*') {
                 evalString += el;
-            }
-            else {
+            } else {
                 onlyMultiplyCase = true
             }
         } else {
@@ -126,7 +123,7 @@ function transformInputWithPercentageSymbols(screenValue) {
 
             } else if (el.includes('+') || el.includes('-')) {
                 el = el.replace(/%/g, '*1/100')
-                if (onlyMultiplyCase){
+                if (onlyMultiplyCase) {
                     el = '*' + el;
                     onlyMultiplyCase = false
                 }
@@ -142,9 +139,10 @@ function transformInputWithPercentageSymbols(screenValue) {
 }
 
 
-function calculateOutput(screen) {
+function calculateOutput(screen, inputValue) {
     let newScreenValue = screen.value;
-    newScreenValue = transformInputWithPercentageSymbols(newScreenValue)
+    newScreenValue = transformInputWithPercentageSymbols(newScreenValue);
+    let lastChar = screen.value.charAt(screen.value.length - 1)
     let resultScreen = '';
     try {
         resultScreen = eval(newScreenValue);
@@ -155,11 +153,14 @@ function calculateOutput(screen) {
             resultScreen === -Infinity ||
             resultScreen.toString() === 'NaN') {
 
-            resultScreen = 'ERROR!\nDivision by 0';
+            resultScreen = 'ERROR!\n Division by 0';
+        }
+        if (inputValue === '=') {
+            screen.value = '';
         }
     } catch (error) {
-        let inputValue = screen.value.charAt(screen.value.length - 1)
-        if (inputValue === '.') {
+
+        if (lastChar === '.') {
             screen.value = clearScreen('BACK', screen);
 
             // Recursive call. There is no danger of infinite invocation,
@@ -172,18 +173,21 @@ function calculateOutput(screen) {
         }
 
     }
+
+
     return resultScreen
 }
 
 function clickButton(element) {
+
     // Get needed DOM elements
     let screen = document.getElementById("screen-inputs");
     let resultScreen = document.getElementById('resultScreen')
     let elementType = element.getAttribute('class');
     let inputValue = element.value;
 
-    screen.value = handleInputs(screen, inputValue, elementType);
-    resultScreen.value = calculateOutput(screen)
 
+    screen.value = handleInputs(screen, inputValue, elementType);
+    resultScreen.value = calculateOutput(screen, inputValue);
 }
 

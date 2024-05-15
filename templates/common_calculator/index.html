@@ -12,27 +12,104 @@
 <body>
 <main>
     <article>
-        <section id="screen">
-        <label class="screens" for="screen-inputs" ></label>
-        <input type="text" id="screen-inputs" onkeypress="return isNumberKey(event)">
 
-        <label for="resultScreen" disabled></label>
+    <section id="screen">
+            <label for="screen-inputs"></label>
+            <input type="text" class="screen-inputs" id="screen-inputs" dir="auto" onkeypress="return isNumberKey(event)">
+            <label for="resultScreen"></label>
+            <input type="text" class="resultScreen" id="resultScreen" dir="auto">
+        </section>
 
-        <input type="text" class="screens" id="resultScreen">
-    </section>
 
         <section id="display">
-        <ul class="calculator display" id="calculator-buttons">
-            {% for number in numbers %}
-                <li>
-                    {#                <input type="button" value="{{ number.value }}" onclick="typeButtonValuesOnScreen()" >#}
-                    <button type="button" class="{{ number.button_type }}" value="{{ number.value }}"
-                            onclick="clickButton(this)">{{ number.value }}
+            <table>
+                <tr class="row 1">
+                    <td>
+                        <button type="button" class="button clear_function"
+                                value="C" onclick="clickButton(this)">C</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button operation"
+                                value="/" onclick="clickButton(this)">/</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button operation"
+                                value="*" onclick="clickButton(this)">*</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button clear_function"
+                                value="BACK" onclick="clickButton(this)"><=</button>
+                    </td>
+                </tr>
+                <tr class="row 2">
+                    <td>
+                        <button type="button" class="button digit"
+                                value="7" onclick="clickButton(this)">7</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="8" onclick="clickButton(this)">8</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="9" onclick="clickButton(this)">9</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button operation"
+                                value="-" onclick="clickButton(this)">-</button>
+                    </td>
+                </tr>
+                <tr class="row 3">
+                     <td>
+                        <button type="button" class="button digit"
+                                value="4" onclick="clickButton(this)">4</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="5" onclick="clickButton(this)">5</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="6" onclick="clickButton(this)">6</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button operation"
+                                value="+" onclick="clickButton(this)">+</button>
+                    </td>
+                </tr>
+                <tr class="row 4">
+                    <td>
+                        <button type="button" class="button digit"
+                                value="1" onclick="clickButton(this)">1</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="2" onclick="clickButton(this)">2</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="3" onclick="clickButton(this)">3</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button special"
+                                value="=" onclick="clickButton(this)">=</button>
+                    </td>
+                </tr>
+                <tr class="row 5"><td>
+                        <button type="button" class="button special"
+                                value="%" onclick="clickButton(this)">%</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="0" onclick="clickButton(this)">0</button>
+                    </td>
+                    <td>
+                        <button type="button" class="button digit"
+                                value="." onclick="clickButton(this)">.</button>
+                    </td>
+                   </tr>
 
-                    </button>
-                </li>
-            {% endfor %}
-        </ul>
+            </table>
     </section>
     </article>
 </main>

@@ -1,11 +1,10 @@
 body {
-    display: block;
     margin: 8px;
 }
 
 main {
-    background-color: gray;
-    border: 4px solid dimgray;
+    background-color: whitesmoke;
+    border: 3px solid dimgray;
     border-radius: 3%;
     box-shadow: dimgray;
     justify-content: center;
@@ -32,43 +31,50 @@ article {
 }
 
 #screen-inputs {
-    background-color: white;
+    background-color: whitesmoke;
     height: 50%;
     width: 100%;
-    border-bottom: white;
+    border-bottom: none;
     font-size: 130%;
     border-radius: 6px 6px 0 0;
+    border-top: white;
+    border-left: white;
+    border-right: none;
 }
 
 #resultScreen {
-    background-color: white;
+    background-color: whitesmoke;
     height: 50%;
     width: 100%;
-    border-top: white;
+    border-top: none;
     font-size: 105%;
     border-radius: 0 0 6px 6px;
+    border-left: white;
+    border-bottom: none;
+    border-right: none;
 }
 
 #display {
-    background-color: #f2f2f2;
+    background-color: whitesmoke;
     padding: 12%;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 7%;
     height: 58%;
     width: 77%;
     margin-left: -2%;
-
+}
+table {
+    padding-right: 1%;
+    margin: -9% -9%;
 }
 
-ul#calculator-buttons {
-    width: 93%;
-    margin-top: -2%;
-    margin-left: -23%;
-}
-
-li {
-    display: inline-block;
-    border: 1px black;
+.button {
+    cursor: pointer;
+    width: 36px;
+    background-color: white;
+    border-radius: 4px;
+    margin: 6%;
+    height: 26px;
+    border: 2px solid gray;
+    box-shadow: 1px gray;
 }
 

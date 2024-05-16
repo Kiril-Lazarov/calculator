@@ -15,9 +15,10 @@
 
     <section id="screen">
             <label for="screen-inputs"></label>
-            <input type="text" class="screen-inputs" id="screen-inputs" dir="auto" onkeypress="return isNumberKey(event)">
+            <input type="text" class="screen-inputs" id="screen-inputs"
+                   dir="auto" onkeypress="return isNumberKey(event)" disabled>
             <label for="resultScreen"></label>
-            <input type="text" class="resultScreen" id="resultScreen" dir="auto">
+            <input type="text" class="resultScreen" id="resultScreen" dir="auto" disabled>
         </section>
 
 
@@ -90,8 +91,8 @@
                         <button type="button" class="button digit"
                                 value="3" onclick="clickButton(this)">3</button>
                     </td>
-                    <td>
-                        <button type="button" class="button special"
+                    <td rowspan="2">
+                        <button  type="button" class="button special equal"
                                 value="=" onclick="clickButton(this)">=</button>
                     </td>
                 </tr>

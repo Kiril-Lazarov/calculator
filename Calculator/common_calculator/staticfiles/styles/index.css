@@ -44,6 +44,10 @@ article {
     border-left: white;
     border-right: none;
 }
+#screen-inputs:focus {
+    outline: none;
+    border: none;
+}
 
 #screen-inputs::placeholder {
     color: gray;
@@ -86,23 +90,23 @@ table {
     margin: 7%;
     height: 29px;
     border: 1px solid gray;
-    border-top: 3px solid rgba(255, 255, 255, 0.1); /* Светла ивица отгоре */
+    border-top: 3px solid rgba(255, 255, 255, 0.1);
     border-left: 3px solid rgba(255, 255, 255, 0.1);
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .button::before {
-    content: ''; /* Празно съдържание */
-    position: absolute; /* Абсолютно позициониране */
-    top: 0; /* В горната част на бутона */
-    left: 0; /* В лявата част на бутона */
-    width: 100%; /* Ширина 100% */
-    height: 100%; /* Височина 100% */
-    border-top: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отгоре */
-    border-left: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отляво */
-    box-sizing: border-box; /* Включва границите в изчислението на ширината и височината */
-    pointer-events: none; /* Прекъсва взаимодействието с мишката */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-top: 3px solid rgba(255, 255, 255, 0.3);
+    border-left: 3px solid rgba(255, 255, 255, 0.3);/
+    box-sizing: border-box;
+    pointer-events: none;
 }
 
 .button.special.equal {
@@ -112,20 +116,18 @@ table {
 
 .button:hover {
     background-color: bisque;
-    border-top: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отгоре */
+    border-top: 3px solid rgba(255, 255, 255, 0.3);
     border-left: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .button:active {
     box-shadow: 1px 1px rgba(0, 0, 0, 0.3);
     transform: translateY(2px);
-    /*border-top: 1px solid rgba(255, 255, 255, 0.3); !* Светла ивица отгоре *!*/
-    /*border-left: 1px solid rgba(255, 255, 255, 0.3);*/
 }
 
 .button.special.equal:hover {
     background-color: bisque;
-    border-top: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отгоре */
+    border-top: 3px solid rgba(255, 255, 255, 0.3);
     border-left: 3px solid rgba(255, 255, 255, 0.3);
 }
 

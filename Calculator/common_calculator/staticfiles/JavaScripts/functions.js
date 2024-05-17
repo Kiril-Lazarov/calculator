@@ -203,7 +203,7 @@ function evaluateExpression(screen, resultScreen, elementType,
     screen.value = handleInputs(screen, inputValue, elementType);
     longScreenInput = screen.value;
     resultScreen.value = calculateOutput(screen, inputValue);
-    longScreenInput = shiftScreenExpression(screen, longScreenInput);
+    return shiftScreenExpression(screen, longScreenInput);
 }
 
 function clickButton(element) {
@@ -214,7 +214,8 @@ function clickButton(element) {
     let elementType = element.getAttribute('class').replace('button ', '');
     let inputValue = element.value;
 
-    evaluateExpression(screen, resultScreen, elementType,
-        inputValue, longScreenInput)
+    longScreenInput = evaluateExpression(screen, resultScreen, elementType,
+                            inputValue, longScreenInput)
+
 }
 

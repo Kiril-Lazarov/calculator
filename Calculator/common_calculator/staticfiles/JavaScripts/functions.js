@@ -1,3 +1,21 @@
+let digits = '0123456789';
+let operations = '+-*/%';
+
+let maxInputLength = 12
+let longScreenInput = ''
+
+//Defines which character can be typed on the screen after another character
+let nextAllowedCharacter = {
+    'first': digits + '-',
+    '0': operations + '.',
+    '+': digits,
+    '-': digits,
+    '*': digits + '-',
+    '/': digits,
+    '.': digits,
+    '%': digits + operations
+}
+
 function isNumberKey(evt) {
     let charCode = (evt.which) ? evt.which : evt.keyCode;
     return (charCode >= 48 && charCode <= 57) || // digits from 0 - 9
@@ -28,25 +46,10 @@ function clearScreen(value, screen) {
 
     } else if (value === 'BACK') {
         newScreenValue = screen.value.slice(0, -1);
-
     }
     return newScreenValue
 }
 
-let digits = '0123456789';
-let operations = '+-*/%';
-
-//Defines which character can be typed on the screen after another character
-let nextAllowedCharacter = {
-    'first': digits + '-',
-    '0': operations + '.',
-    '+': digits,
-    '-': digits,
-    '*': digits + '-',
-    '/': digits,
-    '.': digits,
-    '%': digits + operations
-}
 
 // Filters inputs
 function handleInputs(screen, inputValue, elementType) {
@@ -61,6 +64,7 @@ function handleInputs(screen, inputValue, elementType) {
     } else {
         if (elementType === 'clear_function') {
             return clearScreen(inputValue, screen)
+
         } else if (Object.keys(nextAllowedCharacter).includes(lastChar)) {
             let regexPattern = /\d+\.\d+|\d+/gm;
             const matchedPatternsMassive = extractStringPattern(screen.value, regexPattern);
@@ -81,13 +85,11 @@ function handleInputs(screen, inputValue, elementType) {
                     newScreenValue += inputValue;
                     return newScreenValue
                 }
-
             }
         } else {
             newScreenValue += inputValue;
             return newScreenValue
         }
-
     }
     return newScreenValue
 }
@@ -178,16 +180,41 @@ function calculateOutput(screen, inputValue) {
     return resultScreen
 }
 
+// Guide the movement of the expression on the screen
+// from right to left when the expression is longer
+// than the screen length.
+function shiftScreenExpression(screen, longScreenInput) {
+    let inputLength = screen.value.length;
+
+    if (inputLength > maxInputLength) {
+        let diff = inputLength - maxInputLength;
+        screen.value = screen.value.substring(diff);
+    }
+    return longScreenInput;
+}
+
+// Guide the main logical sequence of steps in the calculations
+function evaluateExpression(screen, resultScreen, elementType,
+                            inputValue, longScreenInput) {
+    if (longScreenInput.length > maxInputLength) {
+        screen.value = longScreenInput
+    }
+
+    screen.value = handleInputs(screen, inputValue, elementType);
+    longScreenInput = screen.value;
+    resultScreen.value = calculateOutput(screen, inputValue);
+    longScreenInput = shiftScreenExpression(screen, longScreenInput);
+}
+
 function clickButton(element) {
 
     // Get needed DOM elements
     let screen = document.getElementById("screen-inputs");
     let resultScreen = document.getElementById('resultScreen')
-    let elementType = element.getAttribute('class');
+    let elementType = element.getAttribute('class').replace('button ', '');
     let inputValue = element.value;
 
-
-    screen.value = handleInputs(screen, inputValue, elementType);
-    resultScreen.value = calculateOutput(screen, inputValue);
+    evaluateExpression(screen, resultScreen, elementType,
+        inputValue, longScreenInput)
 }
 

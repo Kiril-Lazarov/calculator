@@ -215,7 +215,50 @@ function clickButton(element) {
     let inputValue = element.value;
 
     longScreenInput = evaluateExpression(screen, resultScreen, elementType,
-                            inputValue, longScreenInput)
+        inputValue, longScreenInput)
 
 }
+
+function handleKeyPress(event) {
+
+    let keyPressed = event.key;
+
+    // Selects the correct query selector based on the pressed keyboard key
+    let querySelectorsDict = {
+        '0123456789.': document.querySelector('.' + 'button digit'.replace(' ', '.') + '[value="' + keyPressed + '"]'),
+        '+-*/': document.querySelector('.' + 'button operation'.replace(' ', '.') + '[value="' + keyPressed + '"]'),
+        '=': document.querySelector('.button.special.equal[value="' + keyPressed + '"]'),
+        '%': document.querySelector('.button.special[value="' + keyPressed + '"]'),
+        'c': document.querySelector('.button.clear_function[value="' + keyPressed.toUpperCase() + '"]'),
+        'Backspace': document.querySelector('.button.clear_function[value=BACK]')
+    }
+
+    let buttonElement = ''
+    for (let key in querySelectorsDict) {
+        if (key.includes(keyPressed)) {
+            buttonElement = querySelectorsDict[key];
+            break
+        }
+    }
+
+
+    let screen = document.getElementById('screen-inputs');
+
+    if (buttonElement) {
+        if (keyPressed !== 'Backspace') {
+            // Remove the last character from the screen input
+            screen.value = screen.value.slice(0, -1);
+
+        } else {
+            if (screen.value !== '') {
+                screen.value = longScreenInput;
+            }
+        }
+        clickButton(buttonElement);
+    }
+
+}
+
+
+
 

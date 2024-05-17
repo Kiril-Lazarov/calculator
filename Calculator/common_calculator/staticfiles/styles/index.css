@@ -4,16 +4,17 @@ body {
 
 main {
     background-color: whitesmoke;
-    border: 3px solid dimgray;
+    border: 1px solid dimgray;
     border-radius: 3%;
-    box-shadow: dimgray;
     justify-content: center;
     text-align: center;
     width: 200px;
     height: 300px;
-    position: center;
     margin-left: 40%;
     margin-top: 5%;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
+    border-top: 3px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid rgba(255, 255, 255, 0.011);
 }
 
 article {
@@ -22,6 +23,7 @@ article {
     height: 81%;
     margin-top: -2%;
 }
+
 #screen {
     margin-top: 10%;
     height: 30%;
@@ -36,10 +38,16 @@ article {
     width: 100%;
     border-bottom: none;
     font-size: 158%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     border-radius: 6px 6px 0 0;
     border-top: white;
     border-left: white;
     border-right: none;
+}
+
+#screen-inputs::placeholder {
+    color: gray;
+    font-size: 15px;
 }
 
 #resultScreen {
@@ -48,6 +56,7 @@ article {
     width: 100%;
     border-top: none;
     font-size: 100%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     border-radius: 0 0 6px 6px;
     border-left: white;
     border-bottom: none;
@@ -62,24 +71,61 @@ article {
     width: 77%;
     margin-left: -2%;
 }
+
 table {
     padding-right: 1%;
-    margin: -9% -9%;
+    margin: -15% -17%;
 }
 
 .button {
     display: inline-block;
     cursor: pointer;
-    width: 36px;
-    background-color: white;
+    width: 41px;
+    background-color: lightgray;
     border-radius: 4px;
-    margin: 6%;
-    height: 26px;
+    margin: 7%;
+    height: 29px;
     border: 1px solid gray;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    border-top: 3px solid rgba(255, 255, 255, 0.1); /* Светла ивица отгоре */
+    border-left: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.2s, transform 0.2s;
 }
+
+.button::before {
+    content: ''; /* Празно съдържание */
+    position: absolute; /* Абсолютно позициониране */
+    top: 0; /* В горната част на бутона */
+    left: 0; /* В лявата част на бутона */
+    width: 100%; /* Ширина 100% */
+    height: 100%; /* Височина 100% */
+    border-top: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отгоре */
+    border-left: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отляво */
+    box-sizing: border-box; /* Включва границите в изчислението на ширината и височината */
+    pointer-events: none; /* Прекъсва взаимодействието с мишката */
+}
+
 .button.special.equal {
     background-color: lightblue;
-    height: 59px;
+    height: 67px;
+}
+
+.button:hover {
+    background-color: bisque;
+    border-top: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отгоре */
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.button:active {
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+    transform: translateY(2px);
+    /*border-top: 1px solid rgba(255, 255, 255, 0.3); !* Светла ивица отгоре *!*/
+    /*border-left: 1px solid rgba(255, 255, 255, 0.3);*/
+}
+
+.button.special.equal:hover {
+    background-color: bisque;
+    border-top: 3px solid rgba(255, 255, 255, 0.3); /* Светла ивица отгоре */
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
 }
 

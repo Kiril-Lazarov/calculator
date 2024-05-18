@@ -16,7 +16,8 @@
     <section id="screen">
             <label for="screen-inputs"></label>
             <input type="text" class="screen-inputs" id="screen-inputs"
-                   dir="auto" onkeypress="return isNumberKey(event)" disabled>
+                   dir="auto" onkeypress="return isNumberKey(event)" placeholder="Type Expression"
+                    onkeyup="return handleKeyPress(event)">
             <label for="resultScreen"></label>
             <input type="text" class="resultScreen" id="resultScreen" dir="auto" disabled>
         </section>

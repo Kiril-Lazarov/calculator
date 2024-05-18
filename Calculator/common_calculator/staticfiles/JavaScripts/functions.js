@@ -1,7 +1,7 @@
 let digits = '0123456789';
 let operations = '+-*/%';
 
-let maxInputLength = 12
+let maxInputLength = 16
 let longScreenInput = ''
 
 //Defines which character can be typed on the screen after another character
@@ -155,7 +155,7 @@ function calculateOutput(screen, inputValue) {
             resultScreen === -Infinity ||
             resultScreen.toString() === 'NaN') {
 
-            resultScreen = 'ERROR!\n Division by 0';
+            resultScreen = 'ERROR!\n Division by 0!';
         }
         if (inputValue === '=') {
             screen.value = '';
@@ -196,7 +196,7 @@ function shiftScreenExpression(screen, longScreenInput) {
 // Guide the main logical sequence of steps in the calculations
 function evaluateExpression(screen, resultScreen, elementType,
                             inputValue, longScreenInput) {
-    if (longScreenInput.length > maxInputLength) {
+    if (longScreenInput.length > maxInputLength && screen.value !== '') {
         screen.value = longScreenInput
     }
 

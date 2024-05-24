@@ -1,51 +1,45 @@
-
-
 let isDragging = false;
 let offsetX, offsetY;
+let draggableElement = null;
 
 function startDragging(event) {
+    event.preventDefault();
     const element = event.target;
-    const rect = element.getBoundingClientRect();
+    draggableElement = element.closest('#draggable').parentElement;
 
-    // Запазваме офсет координатите на мишката спрямо елемента
-    offsetX = event.clientX - rect.left;
-    offsetY = event.clientY - rect.top;
+    const parentRect = draggableElement.getBoundingClientRect();
+    offsetX = event.clientX - parentRect.left;
+    offsetY = event.clientY - parentRect.top;
 
     isDragging = true;
 
-    // Започваме да слушаме за движение на мишката
     document.addEventListener('mousemove', moveElement);
-    event.preventDefault();
+    document.addEventListener('mouseup', stopDragging);
+
 }
 
 function moveElement(event) {
+    event.preventDefault();
+
+
     if (!isDragging) return;
 
-    // Изчисляваме новите координати на елемента
-    const newX = event.clientX - offsetX;
-    const newY = event.clientY - offsetY - 16;
+    const newX = event.clientX - offsetX - 10;
+    const newY = event.clientY - offsetY - 10;
 
+    const parentElement = document.querySelector('main');
 
-
-    const element = document.getElementById('draggable');
-    const draggableElement = element.parentNode.parentNode
-    console.log(draggableElement)
-    draggableElement.style.left = newX + 'px';
-    draggableElement.style.top = newY + 'px';
+    parentElement.style.left = newX + 'px';
+    parentElement.style.top = newY + 'px';
 }
 
 function stopDragging() {
+    if (!isDragging) return;
+
     isDragging = false;
 
-    // Спираме да слушаме за движение на мишката
     document.removeEventListener('mousemove', moveElement);
+    document.removeEventListener('mouseup', stopDragging);
 }
 
-// Добавяме слушател за натискане на мишката върху елемента
 document.getElementById('draggable').addEventListener('mousedown', startDragging);
-
-// Добавяме слушател за пускане на мишката в целия документ
-document.addEventListener('mouseup', stopDragging);
-
-
-

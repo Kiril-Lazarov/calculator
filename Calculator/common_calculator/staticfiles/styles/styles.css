@@ -33,7 +33,7 @@ article {
     height: 0.4em;
     background-color: gray;
     cursor: move;
-    border-radius: 4px;
+    border-radius: 3px;
     left: 1.1em;
     border: 1px solid gray;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -94,7 +94,6 @@ article {
 #display {
     position: absolute;
     background-color: whitesmoke;
-    /* margin-top: 7%; */
     height: 12em;
     width: 13em;
     top: 8em;
@@ -129,8 +128,10 @@ tbody {
 }
 
 .button:active {
-    transform: translateY(4px);
-    box-shadow:  1px 1px rgba(0, 0, 0, 0.7);
+    transform: translateY(2px);
+    width: 3.38em;
+    height: 2.35em;
+    box-shadow:  1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .button::before {

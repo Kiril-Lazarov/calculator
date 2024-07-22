@@ -85,10 +85,12 @@ function handleInputs(screen, inputValue, elementType) {
                     newScreenValue += inputValue;
                     return newScreenValue
                 }
+
                 else if (inputValue === '.' && !lastNumber.includes(inputValue)){
                     newScreenValue+=inputValue
                     return newScreenValue
                 }
+
             }
         } else {
             newScreenValue += inputValue;
@@ -213,7 +215,11 @@ function evaluateExpression(screen, resultScreen, elementType,
 function clickButton(element) {
 
     // Get needed DOM elements
+<<<<<<< HEAD
     let screen = document.getElementById("inputs");
+=======
+    let screen = document.getElementById("screen-inputs");
+>>>>>>> d546a552c11462bb4bffa6cc3250e666de33ed53
     let resultScreen = document.getElementById('resultScreen')
     let elementType = element.getAttribute('class').replace('button ', '');
     let inputValue = element.value;
@@ -246,7 +252,11 @@ function handleKeyPress(event) {
     }
 
 
+<<<<<<< HEAD
     let screen = document.getElementById('inputs');
+=======
+    let screen = document.getElementById('screen-inputs');
+>>>>>>> d546a552c11462bb4bffa6cc3250e666de33ed53
 
     if (buttonElement) {
         if (keyPressed !== 'Backspace') {
@@ -261,4 +271,12 @@ function handleKeyPress(event) {
         clickButton(buttonElement);
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+
+
+
+
+>>>>>>> d546a552c11462bb4bffa6cc3250e666de33ed53

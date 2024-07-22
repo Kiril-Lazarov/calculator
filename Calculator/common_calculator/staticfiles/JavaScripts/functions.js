@@ -85,6 +85,10 @@ function handleInputs(screen, inputValue, elementType) {
                     newScreenValue += inputValue;
                     return newScreenValue
                 }
+                else if (inputValue === '.' && !lastNumber.includes(inputValue)){
+                    newScreenValue+=inputValue
+                    return newScreenValue
+                }
             }
         } else {
             newScreenValue += inputValue;
@@ -209,7 +213,7 @@ function evaluateExpression(screen, resultScreen, elementType,
 function clickButton(element) {
 
     // Get needed DOM elements
-    let screen = document.getElementById("screen-inputs");
+    let screen = document.getElementById("inputs");
     let resultScreen = document.getElementById('resultScreen')
     let elementType = element.getAttribute('class').replace('button ', '');
     let inputValue = element.value;
@@ -242,7 +246,7 @@ function handleKeyPress(event) {
     }
 
 
-    let screen = document.getElementById('screen-inputs');
+    let screen = document.getElementById('inputs');
 
     if (buttonElement) {
         if (keyPressed !== 'Backspace') {
@@ -258,7 +262,3 @@ function handleKeyPress(event) {
     }
 
 }
-
-
-
-

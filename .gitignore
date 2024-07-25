@@ -1,10 +1,9 @@
-# Игнорира файлове на Python
 __pycache__/
 *.pyc
 
-# Игнорира Django конфигурационни файлове
-settings.py
-
-# Игнорира други файлове и директории
 *.log
 *.env
+
+.idea/
+.vscode/
+envs/

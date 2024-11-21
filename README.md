@@ -1,5 +1,5 @@
 # Calculator
-This is a test Django project for front-end styling with JavaScript, HTML, and CSS, and deployment in a production environment. The project is deployed on AWS and is accessible at this address: [http://13.39.23.137].
+This is a test Django project for front-end styling with JavaScript, HTML, and CSS, and deployment in a production environment.
 
 For its proper functioning, three additional files are required:
 
